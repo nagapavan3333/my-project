@@ -2,23 +2,24 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+
+        stage('Clone') {
             steps {
-                echo 'Repository checked out successfully'
+                echo 'Repository cloned successfully'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t my-project .'
+                sh 'docker build -t my-website .'
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Run Container') {
             steps {
                 sh '''
-                docker rm -f my-project-container || true
-                docker run -d --name my-project-container -p 80:80 my-project
+                docker rm -f my-container || true
+                docker run -d --name my-container -p 80:80 my-website
                 '''
             }
         }
